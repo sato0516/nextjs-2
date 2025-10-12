@@ -15,7 +15,7 @@ env:
   IMAGE_TAG: ${{ github.sha }}
   # 明示的に引用符で囲む（YAML パース事故回避）
   ROLE_TO_ASSUME: "arn:aws:iam::025492553318:role/github-oidc-deploy-role"
-  APP_RUNNER_SERVICE_ARN: "arn:aws:apprunner:ap-northeast-1:775209358765:service/nextjs-test/0c09533fdc5d41ddb9d5f5d446fc0e85"
+  APP_RUNNER_SERVICE_ARN: "arn:aws:apprunner:ap-northeast-1:025492553318:service/nextjs-2/d96931d4513f455aab445dd8ab6acc40"
 
 jobs:
   deploy:
