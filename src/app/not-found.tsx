@@ -3,5 +3,5 @@ export default function NotFound() {
     <div>
       そのページは存在しません
     </div>
-  )
+  );
 }

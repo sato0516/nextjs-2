@@ -3,5 +3,5 @@ export default function CompletePage() {
     <div>
       送信完了しました
     </div>
-  )
+  );
 }

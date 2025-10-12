@@ -1,41 +1,45 @@
 'use client'
-import { submitContactForm } from "@/lib/actions/contact"
-import { ContactSchema } from "@/validations/contact"
-import { useActionState,useState } from "react"
-import { z } from "zod"
+import { submitContactForm } from '@/lib/actions/contact'
+import { ContactSchema } from '@/validations/contact'
+import { useActionState, useState } from 'react'
+import { z } from 'zod'
 
 export default function ContactForm() {
-  const [state, formAction] = useActionState(submitContactForm,{
-    success: false,
-    errors: {}
-  });
+  const [state, formAction] = useActionState(
+    submitContactForm,
+    {
+      success: false,
+      errors: {}
+    }
+  );
 
-  const [clientErrors, setClientErrors] = useState({name:'', email:''});
+  const [clientErrors, setClientErros] = useState({name: '', email: ''});
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { name,value } = e.target
+    const { name, value } = e.target;
 
-    try{
-      if(name === 'name'){
-        ContactSchema.pick({ name: true }).parse({ name: value })
-      } else if (name === 'email'){
-        ContactSchema.pick({ email: true }).parse({ email: value })
+    try {
+      if (name === 'name') {
+        ContactSchema.pick({name: true}).parse({name: value});
+      } else if (name === 'email') {
+        ContactSchema.pick({email: true}).parse({email: value});
       }
 
-      setClientErrors( prev =>({
-        ...prev,
-        [name]:''
-      }))
-    } catch(error){
-      if(error instanceof z.ZodError){
-        const errorMessage = error.errors[0]?.message || ''
-        setClientErrors( prev => ({
+      setClientErros(prev =>({
+          ...prev,
+          [name]: ''
+        }));
+
+    } catch(error) {
+      if (error instanceof z.ZodError) {
+        const errorMessage = error.errors[0]?.message || '';
+        setClientErros(prev => ({
           ...prev,
           [name]: errorMessage
-        }))
+        }));
       }
     }
-  }
+  };
 
   return (
     <div>
@@ -58,7 +62,7 @@ export default function ContactForm() {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="email" className="text-sm">メールアドレス</label>
-                    <input type="text" id="email" name="email" 
+                    <input type="text" id="email" name="email"
                     onBlur={handleBlur}
                     className="
                     w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8" />

@@ -5,7 +5,7 @@ export default function AboutLayout({
 }>) {
   return (
     <div className="bg-gray-100 h-screen">
-      {children}
+      { children }
     </div>
   )
 }

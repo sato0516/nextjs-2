@@ -1,15 +1,17 @@
 import Image from "next/image"
-export const revalidate = 10; // 10秒ごとに再生成
+export const revalidate = 10
 
 export default async function ISRPage() {
-  const res = await fetch('https://dog.ceo/api/breeds/image/random',
-    {next: { revalidate: 10}}
+  const res = await fetch('https://dog.ceo/api/breeds/image/random', 
+    {
+      next: { revalidate: 10 }
+    }
   );
-
   const resJson = await res.json();
   const imageUrl = resJson.message;
-  const timestamp = new Date().toISOString();
   
+  const timestamp = new Date().toISOString();
+
   return (
     <div>
       ISR 10秒ごとにリロード: { timestamp }

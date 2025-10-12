@@ -3,5 +3,6 @@ export default function ProfilePage() {
     <div>
       プロフィール
     </div>
-  )
+  );
 }
+ 
