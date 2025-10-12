@@ -10,6 +10,6 @@ export default function ClientComponent() {
   <div>
     Client
     <Link href="/about">About</Link>
-    <button onClick={() => router.push('/about')}>About2</button>
+    <button onClick={() => (router.push('/about'))}>About2</button>
   </div>)
 }
