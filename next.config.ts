@@ -14,6 +14,20 @@ const nextConfig: NextConfig = {
 
   // App Runner のポートは環境変数 PORT=3000 で受けるので特に不要
   // 必要なら他の設定を追記
+
+  // ★ Prisma Client を webpack バンドルから外す設定
+  webpack: (config) => {
+    config.externals = config.externals || [];
+
+    if (Array.isArray(config.externals)) {
+      config.externals.push({
+        ".prisma/client": "commonjs .prisma/client",
+        "@prisma/client": "commonjs @prisma/client",
+      });
+    }
+
+    return config;
+  },
 };
 
 export default nextConfig;
