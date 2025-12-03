@@ -19,6 +19,7 @@ export async function submitContactForm(
   {
   const name = formData.get('name') as string;
   const email = formData.get('email') as string;
+  const message = formData.get('message') as string;
   
   // バリデーション
   const validationResult = ContactSchema.safeParse({name, email});
@@ -51,7 +52,7 @@ export async function submitContactForm(
   }
 
   await prisma.contact.create({
-    data: {name, email}
+    data: { name, email, message } 
   });
 
   console.log('送信されたデータ: ', {name, email});
