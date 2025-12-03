@@ -9,13 +9,17 @@ export default function ContactForm() {
     submitContactForm,
     {
       success: false,
-      errors: {}
+      errors: {
+        name: [],
+        email: [],
+        message: [],
+      }
     }
   );
 
-  const [clientErrors, setClientErros] = useState({name: '', email: ''});
+  const [clientErrors, setClientErros] = useState({name: '', email: '',message: '',});
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
     try {
@@ -23,6 +27,8 @@ export default function ContactForm() {
         ContactSchema.pick({name: true}).parse({name: value});
       } else if (name === 'email') {
         ContactSchema.pick({email: true}).parse({email: value});
+      } else if (name === 'message') {
+        ContactSchema.pick({ message: true }).parse({ message: value });
       }
 
       setClientErros(prev =>({
@@ -96,9 +102,20 @@ export default function ContactForm() {
               <textarea
                 name="message"
                 rows={4}
+                onBlur={handleBlur}
                 className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 placeholder:text-sm"
                 placeholder="お問い合わせ内容をご記入ください"
               />
+              {state.errors.message && state.errors.message.length > 0 && (
+                <p className="text-red-500 text-sm mt-1">
+                  {state.errors.message.join(',')}
+                </p>
+              )}
+              {clientErrors.message && (
+                <p className="text-red-500 text-sm mt-1">
+                  {clientErrors.message}
+                </p>
+              )}
             </div>
             <div className="flex justify-center mt-4">
               <button className="text-white bg-indigo-500 py-2 px-6 hover:bg-indigo-600 rounded text-lg">

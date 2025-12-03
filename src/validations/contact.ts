@@ -8,7 +8,7 @@ export const ContactSchema = z.object({
     .min(1, 'メールアドレスは必須です。')
     .email('正しいメールアドレスの形式で入力して下さい。'),
   message: z.string()
-    .min(1, "お問い合わせ内容は必須です"), 
+    .min(1, "お問い合わせ内容は必須です。"), 
 });
 
 // 型の定義

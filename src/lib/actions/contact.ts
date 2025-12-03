@@ -9,6 +9,7 @@ type ActionState = {
   errors: {
     name?: string[];
     email?: string[];
+    message?: string[];
   };
   serverError?: string;
 };
@@ -22,7 +23,7 @@ export async function submitContactForm(
   const message = formData.get('message') as string;
   
   // バリデーション
-  const validationResult = ContactSchema.safeParse({name, email});
+  const validationResult = ContactSchema.safeParse({name, email,message});
   if(!validationResult.success) {
     const errors = validationResult.error.flatten().fieldErrors;
     console.log('サーバー側でエラー', errors);
@@ -30,7 +31,8 @@ export async function submitContactForm(
       success: false,
       errors: {
         name: errors.name  || [],
-        email: errors.email || []
+        email: errors.email || [],
+        message: errors.message || []
       }
     };
   }
@@ -46,7 +48,8 @@ export async function submitContactForm(
       success: false,
       errors: {
         name: [],
-        email: ['このメールアドレスは既に登録されています。']
+        email: ['このメールアドレスは既に登録されています。'],
+        message: []
       }
     }
   }
@@ -55,6 +58,6 @@ export async function submitContactForm(
     data: { name, email, message } 
   });
 
-  console.log('送信されたデータ: ', {name, email});
+  console.log('送信されたデータ: ', {name, email,message});
   redirect('/contacts/complete');
 }
