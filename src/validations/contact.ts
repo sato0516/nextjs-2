@@ -6,7 +6,9 @@ export const ContactSchema = z.object({
     .max(20, '名前は20文字以内で入力して下さい。'),
   email: z.string()
     .min(1, 'メールアドレスは必須です。')
-    .email('正しいメールアドレスの形式で入力して下さい。')
+    .email('正しいメールアドレスの形式で入力して下さい。'),
+  message: z.string()
+    .min(1, "お問い合わせ内容は必須です。"), 
 });
 
 // 型の定義
